@@ -97,10 +97,6 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("powerconversion_module")
     public static final Item MODULE_power_convertion = null;
 
-    //Связыватель
-    @GameRegistry.ObjectHolder("binder")
-    public static final Item MODULE_binder = null;
-
     //Нагревающий элемент
     @GameRegistry.ObjectHolder("heatingrod")
     public static final Item ITEM_hetrod = null;
@@ -212,7 +208,6 @@ public class ItemsRegistry {
 
         //Module
         e.getRegistry().register(new ItemList("powerconversion_module", 1, TabsList.EXtabs));
-        e.getRegistry().register(new Binder("binder", 1, TabsList.EXtabs));
 
         //Upgrade
         e.getRegistry().register(new MachinesUpgradeSpeed("upgrade_speed", 16, TabsList.EXtabs));
@@ -270,7 +265,6 @@ public class ItemsRegistry {
 
         //Module
         registryModel(MODULE_power_convertion);
-        registryModel(MODULE_binder);
 
         //Upgrade
         registryModel(UPGRADE_speed);
