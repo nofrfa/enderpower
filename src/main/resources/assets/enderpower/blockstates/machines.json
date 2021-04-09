@@ -7,9 +7,7 @@
       "destructor": {"model":  "enderpower:destructor"},
       "destructor_active": {"model":  "enderpower:destructor_active"},
       "erbi_generator": {"model":  "enderpower:destructor"},
-      "erbi_generator_active": {"model":  "enderpower:destructor_active"},
-      "quantum_storage": {"model":  "enderpower:destructor"},
-      "quantum_storage_active": {"model":  "enderpower:destructor_active"}
+      "erbi_generator_active": {"model":  "enderpower:destructor_active"}
     },
     "facing": {
       "down": { "x": 90 },

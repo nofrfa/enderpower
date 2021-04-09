@@ -5,7 +5,6 @@ import com.nofrfa.enderpower.misc.RarityList;
 import com.nofrfa.enderpower.tile.machines.destructor.DestructorTE;
 import com.nofrfa.enderpower.tile.machines.erbigen.ErbiGeneratorTE;
 import com.nofrfa.enderpower.tile.machines.gasconverter.GasConverterTE;
-import com.nofrfa.enderpower.tile.machines.quantumstorage.QuantumStorage;
 import ic2.core.block.ITeBlock;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.ref.TeBlock;
@@ -23,8 +22,7 @@ import java.util.Set;
 public enum AllMachinesTE implements ITeBlock {
     gas_converter(GasConverterTE.class, 0, RarityList.MSFR),
     destructor(DestructorTE.class, 1, RarityList.MSFR),
-    erbi_generator(ErbiGeneratorTE.class, 2, EnumRarity.EPIC),
-    quantum_storage(QuantumStorage.class, 3, EnumRarity.COMMON);
+    erbi_generator(ErbiGeneratorTE.class, 2, EnumRarity.EPIC);
 
     private final Class AMTEClass;
     private final int itemMeta;
