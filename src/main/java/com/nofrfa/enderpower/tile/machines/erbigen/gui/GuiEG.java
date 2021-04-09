@@ -22,9 +22,6 @@ public class GuiEG extends GuiIC2<ContainerEG> {
 
         this.mc.getTextureManager().bindTexture(getTexture());
         this.drawTexturedModalRect(187, 20, 0, 186, 48, 70);
-
-        this.fontRenderer.drawString("Energy have " + this.container.base.getStored(), 50, 50, 4210752);
-        this.fontRenderer.drawString("Energy max  " + this.container.base.getCapacity(), 50, 60, 4210752);
     }
 
     @Override
