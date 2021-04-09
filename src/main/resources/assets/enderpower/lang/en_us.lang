@@ -1,0 +1,88 @@
+itemGroup.enderpower=Ender Power
+
+tile.ultimate_machine_casing.name=§bUltimate Machine Casing
+enderpower.machines.gas_converter=Gas Extractor
+enderpower.machines.destructor=Atomic bonds restructuring machine
+
+item.neifrit_coil.name=Neifrit Coil
+item.emptyshell.name=Empty Shell
+item.heatingrod.name=Heating Component
+item.ultimate_circuit.name=§bUltimate Circuit
+item.compressed_carbon_plate.name=Compressed Carbon Plate
+item.deterrent.name=§dDeterrent
+item.deterrent_filled.name=§dDeterrent (filled)
+item.inhibition_core.name=§dThe Core Of The Inhibition
+item.amulet_erbi.name=§eThe amulet of Erbi
+
+item.heatsink_lvl.1.name=Heat Sink (Level 1)
+item.heatsink_lvl.2.name=Heat Sink (Level 2)
+item.heatsink_lvl.3.name=Heat Sink (Level 3)
+item.heatsink_lvl.4.name=Heat Sink (Level 4)
+item.heatsink_lvl.5.name=Heat Sink (Level 5)
+item.heatsink_lvl.6.name=Heat Sink (Level 6)
+item.heatsink_lvl.7.name=Heat Sink (Level 7)
+
+item.spadiy.name=Spadiy Ingot
+item.neifrit.name=Neifrit Ingot
+item.erbi.name=Erbi Ingot
+
+item.spadiy_dust.name=Mixture Of Spadiy
+item.steel_dust.name=Steel Dust
+item.neifrit_dust.name=Mixture Of Neifrit
+
+item.neifrit_plate.name=Neifrit Plate
+item.spadiy_plate.name=Spadiy Plate
+
+item.neifrit_plate_dense.name=Dense Neifrit Plate
+item.spadiy_plate_dense.name=Dense Spadiy Plate
+
+item.neifrit_casing.name=Neifrit Casing
+
+item.powerconversion_module.name=Energy module
+item.binder.name=Binder
+
+item.upgrade_speed.name=Upgrade: FastQ
+item.upgrade_volecy.name=Upgrade: Volecy
+
+item.second_product_0.name=Second product (0)
+item.second_product_1.name=Second product (1)
+item.second_product_2.name=Second product (2)
+item.second_product_3.name=Second product (3)
+
+fluid.gas_erbi=Gas Erbi
+tile.null.name=Gas Erbi
+
+#Custom localization
+chatinfo.tag=§3[EnderPower] §r
+
+event.fail=This action can only be performed in the §5end world
+
+more.eu_t=Eu/t
+more.sec=seconds
+more.mb_out=mb
+
+projectileHolder.shift=§8Details Shift
+projectileHolder.information.line1=§8RMB on the Shulker Bullet projectile
+projectileHolder.information.line2=§8to fill
+projectileHolder_filled.information.line1=§8Inside:
+projectileHolder_filled.null_info=§8Empty
+tooltip.binder.connected=§8Connected to:
+
+command.enderpower_give.success=Shulker Projectile was artificially added to the §dDeterrent
+command.enderpower_give.nbt.error=There's already something in the §ddeterrent
+command.enderpower_give.detter.error=The §dDeterrent§r must be in your hands
+
+upgrade.speed=Reduces the running time by
+upgrade.speed2=Increases energy consumption by
+upgrade.volecy=Increases energy consumption by
+upgrade.volecy2=Increases the gas output by
+upgrade.alert=§4ATTENTION: if you change the number of improvements in the mechanism - the progress is reset
+
+jei.desc.projectile_holder=To fill the §d§lDeterrent§r, you need to hold it in your hands, press the RBM on the shulker projectile
+jei.desc.extra=When using improvements:
+jei.desc.extra2=the speed of operation and the amount
+jei.desc.extra3=of gas may vary*
+
+jei.desc.dust_spidiy=If you decide to blow up the mixture, then don't be surprised if nothing drops...
+
+enderpower.config.fastq_boostspeed=General Settings

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "enderpower:blocks/ultimate_machine_casing",
+    "down": "enderpower:blocks/ultimate_machine_casing",
+    "up": "enderpower:blocks/ultimate_machine_casing",
+    "north": "enderpower:blocks/ultimate_machine_casing",
+    "east": "enderpower:blocks/ultimate_machine_casing",
+    "south": "enderpower:blocks/ultimate_machine_casing",
+    "west": "enderpower:blocks/ultimate_machine_casing"
+  }
+}

@@ -1,0 +1,86 @@
+itemGroup.enderpower=Ender Power
+
+tile.ultimate_machine_casing.name=§bУльтимативный корпус механизма
+enderpower.machines.gas_converter=Газовый экстрактор
+enderpower.machines.destructor=Реструктуризатор атомных связей
+
+item.neifrit_coil.name=Неифритовая катушка
+item.emptyshell.name=Пустая оболочка
+item.heatingrod.name=Нагревающий элемент
+item.ultimate_circuit.name=§bУльтимативная электросхема
+item.compressed_carbon_plate.name=Сжатый углепластик
+item.deterrent.name=§dСдерживатель
+item.deterrent_filled.name=§dСдерживатель (заполнен)
+item.inhibition_core.name=§dЯдро ингибирования
+item.amulet_erbi.name=§eАмулет Эрбия
+
+item.heatsink_lvl.1.name=Теплоотвод (Уровень 1)
+item.heatsink_lvl.2.name=Теплоотвод (Уровень 2)
+item.heatsink_lvl.3.name=Теплоотвод (Уровень 3)
+item.heatsink_lvl.4.name=Теплоотвод (Уровень 4)
+item.heatsink_lvl.5.name=Теплоотвод (Уровень 5)
+item.heatsink_lvl.6.name=Теплоотвод (Уровень 6)
+item.heatsink_lvl.7.name=Теплоотвод (Уровень 7)
+
+item.spadiy.name=Слиток Спадия
+item.neifrit.name=Слиток Неифрита
+item.erbi.name=Слиток Эрбия
+
+item.spadiy_dust.name=Смесь спадия
+item.steel_dust.name=Стальная пыль
+item.neifrit_dust.name=Смесь неифрита
+
+item.neifrit_plate.name=Неифритовая пластина
+item.spadiy_plate.name=Пластина из спадия
+
+item.neifrit_plate_dense.name=Сжатая неифритовая пластина
+item.spadiy_plate_dense.name=Сжатая спадиевая пластина
+
+item.neifrit_casing.name=Неифритовая оболочка
+
+item.powerconversion_module.name=Энергетический модуль
+item.binder.name=Связыватель
+
+item.upgrade_speed.name=Улучшение: FastQ
+item.upgrade_volecy.name=Улучшение: Volecy
+
+item.second_product_0.name=Вторичный продукт (0)
+item.second_product_1.name=Вторичный продукт (1)
+item.second_product_2.name=Вторичный продукт (2)
+item.second_product_3.name=Вторичный продукт (3)
+
+fluid.gas_erbi=Газ Эрби
+tile.null.name=Газ Эрби
+
+#Custom localization
+chatinfo.tag=§3[EnderPower] §r
+
+event.fail=Это действие может быть выполнено только в §5эндер мире
+
+more.eu_t=Eu/t
+more.sec=секунд
+more.mb_out=mb
+
+projectileHolder.shift=§8Подробности Shift
+projectileHolder.information.line1=§8Пкм по снаряду шалкера,
+projectileHolder.information.line2=§8чтобы заполнить
+projectileHolder_filled.information.line1=§8Внутри:
+projectileHolder_filled.null_info=§8Пусто
+tooltip.binder.connected=§8Привязано к:
+
+command.enderpower_give.success=Снаряд Шалкера был искусственно добавлен в §dСдерживатель
+command.enderpower_give.nbt.error=В §dСдерживателе§r уже что-то есть
+command.enderpower_give.detter.error=§dСдерживатель§r должен быть в ваших руках
+
+upgrade.speed=Уменьшает время работы на
+upgrade.speed2=Увеличивает потребление энергии на
+upgrade.volecy=Увеличивает потребление энергии на
+upgrade.volecy2=Увеличивает выход газа на
+upgrade.alert=§4ВНИМАНИЕ: при изменении количества улучшений в механизме - обнуляется прогресс
+
+jei.desc.projectile_holder=Чтобы заполнить §d§lСдерживатель§r, нужно держа его в руках, нажать ПКМ по снаряду шалкера
+jei.desc.extra=При использовании улучшений:
+jei.desc.extra2=скорость работы и количество газа
+jei.desc.extra3=может отличаться*
+
+jei.desc.dust_spidiy=Если вы решите подорвать смесь, то не удивляйтесь если ничего не выпадет...enderpower.config.fastq_boostspeed=General Settingsenderpower.config.fastq_boostspeed=General Settings

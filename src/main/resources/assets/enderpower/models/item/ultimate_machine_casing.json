@@ -1,0 +1,6 @@
+{
+  "parent": "enderpower:block/ultimate_machine_casing",
+  "textures": {
+    "all": "enderpower:blocks/ultimate_machine_casing"
+  }
+}

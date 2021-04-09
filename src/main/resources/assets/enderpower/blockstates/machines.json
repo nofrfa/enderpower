@@ -1,0 +1,24 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "type": {
+      "gas_converter": {"model": "enderpower:gas_converter"},
+      "gas_converter_active": {"model": "enderpower:gas_converter_active"},
+      "destructor": {"model":  "enderpower:destructor"},
+      "destructor_active": {"model":  "enderpower:destructor_active"},
+      "erbi_generator": {"model":  "enderpower:destructor"},
+      "erbi_generator_active": {"model":  "enderpower:destructor_active"},
+      "quantum_storage": {"model":  "enderpower:destructor"},
+      "quantum_storage_active": {"model":  "enderpower:destructor_active"}
+    },
+    "facing": {
+      "down": { "x": 90 },
+      "up": { "x": 270 },
+      "north": { "transform": "forge:default-block" },
+      "south": { "y": 180 },
+      "west": { "y": 270 },
+      "east": { "y": 90 }
+    },
+    "inventory": [{}]
+  }
+}
