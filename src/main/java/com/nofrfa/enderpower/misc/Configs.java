@@ -113,11 +113,13 @@ public class Configs {
                 @Config.LangKey(config + "general_settings.mechanisms.gas_extractor.output_mb")
                 @Config.Comment("How many mB will you get when processing in a gas extractor without upgrades")
                 @Config.RangeInt(min = 200, max = 1200)
+                @Config.RequiresMcRestart
                 public int defaultOutputMb = 250;
 
                 @Config.LangKey(config + "general_settings.mechanisms.gas_extractor.energy_consume")
                 @Config.Comment("How much energy(eu/t) will the mechanism consume without upgrades")
                 @Config.RangeInt(min = 64, max = 1024)
+                @Config.RequiresMcRestart
                 public int defaultEnergyConsume = 256;
             }
 
@@ -127,6 +129,7 @@ public class Configs {
                 @Config.LangKey(config + "general_settings.mechanisms.destructor.energy_consume")
                 @Config.Comment("How much energy(eu/t) will the mechanism consume without upgrades")
                 @Config.RangeInt(min = 64, max = 2048)
+                @Config.RequiresMcRestart
                 public int defaultEnergyConsume = 768;
             }
 
@@ -136,16 +139,19 @@ public class Configs {
                 @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.max_energy_capacity")
                 @Config.Comment("Internal energy buffer (How much can be stored)\nP.s - add D at the end (numberD)")
                 @Config.RangeDouble(min = 120_000_000, max = 9_223_372_036_854_775_807D)
+                @Config.RequiresMcRestart
                 public double defaultEnergyCapacity = 10_000_000_000D;
 
                 @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.max_temperature")
                 @Config.Comment("Maximum temperature in mechanism")
                 @Config.RangeInt(min = 5000, max = 12000)
+                @Config.RequiresMcRestart
                 public int defaultMaxTemperature = 6000;
 
                 @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.production")
                 @Config.Comment(" /// ") // TODO: 09.04.2021
                 @Config.RangeInt(min = 0)
+                @Config.RequiresMcRestart
                 public int defaultProduction = 400_000;
             }
         }
