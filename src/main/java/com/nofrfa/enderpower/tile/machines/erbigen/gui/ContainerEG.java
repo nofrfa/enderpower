@@ -14,6 +14,13 @@ public class ContainerEG extends ContainerFullInv<ErbiGeneratorTE> {
     public List<String> getNetworkedFields() {
         List<String> ret = super.getNetworkedFields();
         ret.add("energy");
+        ret.add("tier");
+        ret.add("turn");
+        ret.add("stored");
+        ret.add("maxCapacity");
+        ret.add("production");
+        ret.add("temperature");
+        ret.add("maxTemperature");
         return ret;
     }
 }
