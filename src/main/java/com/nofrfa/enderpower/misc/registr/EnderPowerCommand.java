@@ -53,7 +53,6 @@ public class EnderPowerCommand extends CommandBase {
     }
 
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-
         return sender instanceof EntityPlayer && server.getPlayerList().canSendCommands(((EntityPlayer) sender).getGameProfile());
     }
 
@@ -68,7 +67,7 @@ public class EnderPowerCommand extends CommandBase {
             ItemStack mainHandItem = player.getHeldItemMainhand();
 
             if(args[0].equals("detter_shulker")) {
-                if(mainHandItem.getUnlocalizedName().equals("item.deterrent_filled")) {
+                if(mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent_filled)) && mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
                     if(!mainHandItem.hasTagCompound()) {
                         ItemStack finalItem = new ItemStack(ItemsRegistry.ITEM_deterrent_filled);
 
