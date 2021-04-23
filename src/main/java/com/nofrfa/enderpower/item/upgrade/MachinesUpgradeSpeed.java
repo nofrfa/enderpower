@@ -28,6 +28,5 @@ public class MachinesUpgradeSpeed extends Item {
 
         tooltip.add(I18n.format("upgrade.speed") + " " + boostSpeed + " " + I18n.format("more.sec"));
         tooltip.add(I18n.format("upgrade.speed2") + " " + boostEnergy + " " + I18n.format("more.eu_t"));
-        tooltip.add(I18n.format("upgrade.alert"));
     }
 }
