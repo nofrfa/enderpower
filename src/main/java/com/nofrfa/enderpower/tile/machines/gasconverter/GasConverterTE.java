@@ -25,8 +25,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NotClassic
 public class GasConverterTE extends TileEntityElectricMachine implements IHasGui, IWrenchable {
@@ -45,7 +48,6 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
     private int gasOut_increase;
     private int energy_increase;
     private int time_decrease;
-    private int abuseFixer;
     private int abuseFixer2;
 
     public GasConverterTE() {
@@ -67,7 +69,6 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
         this.fluidTank = this.fluids.addTank("fluidTank", 10000, Fluids.fluidPredicate(FluidsRegister.GAS_ERBI));
         this.customUpgradeSlot1 = new InvSlotConsumableItemStack(this, "cupslot1", 1, new ItemStack(ItemsRegistry.UPGRADE_speed));
         this.customUpgradeSlot2 = new InvSlotConsumableItemStack(this, "cupslot2", 1, new ItemStack(ItemsRegistry.UPGRADE_Volecy));
-        this.abuseFixer = 0;
         this.abuseFixer2 = 0;
     }
 
@@ -86,10 +87,6 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
         super.updateEntityServer();
         boolean isActive = this.redstone.getRedstoneInput() == 0;
 
-        if(this.customUpgradeSlot1.get().getCount() != this.abuseFixer) {
-            this.abuseFixer = this.customUpgradeSlot1.get().getCount();
-            this.progress = 0.0F;
-        }
         if(this.customUpgradeSlot2.get().getCount() != this.abuseFixer2) {
             this.abuseFixer2 = this.customUpgradeSlot2.get().getCount();
             this.progress = 0.0F;
@@ -98,6 +95,9 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
         if(this.timer++ % 100 == 0) {
             haveUpgrades();
         }
+
+        if(this.timer >= 100)
+            this.timer = 0;
 
         int energyConsume = Configs.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy_increase;
 
@@ -157,6 +157,7 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public GuiScreen getGui(EntityPlayer entityPlayer, boolean b) {
         return new GuiGas(new ContainerGas(entityPlayer, this));
     }
