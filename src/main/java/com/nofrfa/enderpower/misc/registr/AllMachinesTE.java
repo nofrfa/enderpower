@@ -20,9 +20,9 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public enum AllMachinesTE implements ITeBlock {
-    gas_converter(GasConverterTE.class, 0, RarityList.MSFR),
-    destructor(DestructorTE.class, 1, RarityList.MSFR),
-    erbi_generator(ErbiGeneratorTE.class, 2, EnumRarity.EPIC);
+    gas_converter(GasConverterTE.class, 0, RarityList.defaultRarity),
+    destructor(DestructorTE.class, 1, RarityList.defaultRarity),
+    erbi_generator(ErbiGeneratorTE.class, 2, RarityList.defaultRarity);
 
     private final Class AMTEClass;
     private final int itemMeta;
