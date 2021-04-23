@@ -4,6 +4,23 @@ tile.ultimate_machine_casing.name=§bUltimate Machine Casing
 enderpower.machines.gas_converter=Gas Extractor
 enderpower.machines.destructor=Atomic bonds restructuring machine
 
+erbigenerator.gui.stored_energy=Stored:
+erbigenerator.gui.capacity_energy=Capacity:
+erbigenerator.gui.temp=Now:
+erbigenerator.gui.max_temp=Max.:
+erbigenerator.gui.prod=Generation:
+erbigenerator.gui.output=Output:
+erbigenerator.gui.infinity=Infinitely
+erbigenerator.gui.prompt_line1=Gas capsule slot
+erbigenerator.gui.prompt_line2=Empty Capsule Slot
+erbigenerator.gui.prompt_line3=Radiator Slots
+erbigenerator.gui.prompt_line4=Active Heatsink Slot
+erbigenerator.gui.prompt_line5=Update Slots
+erbigenerator.gui.prompt_line6=Generator Temperature
+erbigenerator.gui.prompt_line7=Internal Energy Storage
+erbigenerator.gui.prompt_line8=Gas Tank
+erbigenerator.gui.prompt_line9=Output information
+
 item.neifrit_coil.name=Neifrit Coil
 item.emptyshell.name=Empty Shell
 item.heatingrod.name=Heating Component
@@ -60,12 +77,11 @@ more.eu_t=Eu/t
 more.sec=seconds
 more.mb_out=mb
 
-projectileHolder.shift=§8Details Shift
-projectileHolder.information.line1=§8RMB on the Shulker Bullet projectile
-projectileHolder.information.line2=§8to fill
-projectileHolder_filled.information.line1=§8Inside:
-projectileHolder_filled.null_info=§8Empty
-tooltip.binder.connected=§8Connected to:
+deterrent.shift=§8Details Shift
+deterrent.information.line1=§8RMB on the Shulker Bullet projectile to fill
+deterrent_filled.information.line1=§8Inside:
+deterrent_filled.null_info=§8Empty
+deterrent.error=§8This item has not yet been released
 
 command.enderpower_give.success=Shulker Projectile was artificially added to the §dDeterrent
 command.enderpower_give.nbt.error=There's already something in the §ddeterrent

@@ -4,6 +4,23 @@ tile.ultimate_machine_casing.name=§bУльтимативный корпус м�
 enderpower.machines.gas_converter=Газовый экстрактор
 enderpower.machines.destructor=Реструктуризатор атомных связей
 
+erbigenerator.gui.stored_energy=Хранится:
+erbigenerator.gui.capacity_energy=Максимум:
+erbigenerator.gui.temp=Сейчас:
+erbigenerator.gui.max_temp=Макс.:
+erbigenerator.gui.prod=Генерация:
+erbigenerator.gui.output=Выход:
+erbigenerator.gui.infinity=Бесконечно
+erbigenerator.gui.prompt_line1=Слот для капсул с газом
+erbigenerator.gui.prompt_line2=Слот для пустых капсул
+erbigenerator.gui.prompt_line3=Слоты для теплоотводов
+erbigenerator.gui.prompt_line4=Слот активного теплоотвода
+erbigenerator.gui.prompt_line5=Слоты для улучшений
+erbigenerator.gui.prompt_line6=Температура генератора
+erbigenerator.gui.prompt_line7=Внутренее хранилище энергии
+erbigenerator.gui.prompt_line8=Резервуар с газом
+erbigenerator.gui.prompt_line9=Вывод информации
+
 item.neifrit_coil.name=Неифритовая катушка
 item.emptyshell.name=Пустая оболочка
 item.heatingrod.name=Нагревающий элемент
@@ -60,12 +77,11 @@ more.eu_t=Eu/t
 more.sec=секунд
 more.mb_out=mb
 
-projectileHolder.shift=§8Подробности Shift
-projectileHolder.information.line1=§8Пкм по снаряду шалкера,
-projectileHolder.information.line2=§8чтобы заполнить
-projectileHolder_filled.information.line1=§8Внутри:
-projectileHolder_filled.null_info=§8Пусто
-tooltip.binder.connected=§8Привязано к:
+deterrent.shift=§8Подробности Shift
+deterrent.information.line1=§8Пкм по снаряду шалкера, чтобы заполнить
+deterrent_filled.information.line1=§8Внутри:
+deterrent_filled.null_info=§8Пусто
+deterrent.error=§8Данный предмет ещё не реализован
 
 command.enderpower_give.success=Снаряд Шалкера был искусственно добавлен в §dСдерживатель
 command.enderpower_give.nbt.error=В §dСдерживателе§r уже что-то есть
@@ -82,4 +98,6 @@ jei.desc.extra=При использовании улучшений:
 jei.desc.extra2=скорость работы и количество газа
 jei.desc.extra3=может отличаться*
 
-jei.desc.dust_spidiy=Если вы решите подорвать смесь, то не удивляйтесь если ничего не выпадет...enderpower.config.fastq_boostspeed=General Settingsenderpower.config.fastq_boostspeed=General Settings
+jei.desc.dust_spidiy=Если вы решите подорвать смесь, то не удивляйтесь если ничего не выпадет...
+
+enderpower.config.fastq_boostspeed=General Settings
