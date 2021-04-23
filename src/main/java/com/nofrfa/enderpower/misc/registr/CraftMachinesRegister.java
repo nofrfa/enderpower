@@ -4,11 +4,8 @@ import ic2.api.item.IC2Items;
 import ic2.api.recipe.IRecipeInput;
 import ic2.api.recipe.IRecipeInputFactory;
 import ic2.api.recipe.Recipes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import static com.nofrfa.enderpower.EnderPower.sendLog;
 
 public class CraftMachinesRegister {
     private static final ItemStack
@@ -29,7 +26,6 @@ public class CraftMachinesRegister {
             sp_3 = new ItemStack(ItemsRegistry.GENERATOR_sp_3);
 
     public static void addMachineRecipe() {
-        sendLog("[REGISTER] [IC2] machinesRecipe");
         IRecipeInputFactory input = Recipes.inputFactory;
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("minHeat", 3000);

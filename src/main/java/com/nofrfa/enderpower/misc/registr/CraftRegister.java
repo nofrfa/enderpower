@@ -4,10 +4,7 @@ import com.nofrfa.enderpower.EnderPower;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import static com.nofrfa.enderpower.EnderPower.sendLog;
 
 public class CraftRegister {
     private static final ItemStack
@@ -87,7 +84,6 @@ public class CraftRegister {
             electrical_motor = IC2Items.getItem("crafting","electric_motor");
 
     public static void addCraftingRecipes() {
-        sendLog("[REGISTER] recipe");
         addShapedRecipes((ult_circuit),
                 "BCB",
                 "CAC",

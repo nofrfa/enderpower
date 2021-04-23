@@ -7,7 +7,6 @@ import ic2.core.block.BlockTileEntity;
 import ic2.core.block.TeBlockRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -20,7 +19,7 @@ import org.apache.logging.log4j.Logger;
         name = EnderPower.NAME,
         version = EnderPower.VERSION,
         acceptedMinecraftVersions = EnderPower.STABLEVERSION,
-        dependencies = "required-after:ic2@[2.8.193-ex112, 2.8.221-ex112];"
+        dependencies = "required-after:ic2@[2.8.192-ex112, 2.8.221-ex112];"
 )
 public class EnderPower {
     public static final String MODID = "enderpower";
@@ -30,7 +29,10 @@ public class EnderPower {
 
     public static Logger log;
 
-    @SidedProxy(clientSide = "com.nofrfa.enderpower.proxy.ClientProxy", serverSide = "com.nofrfa.enderpower.proxy.CommonProxy")
+    @SidedProxy(
+            clientSide = "com.nofrfa.enderpower.proxy.ClientProxy",
+            serverSide = "com.nofrfa.enderpower.proxy.CommonProxy"
+    )
     public static CommonProxy proxy;
 
     @Mod.Instance
@@ -58,9 +60,6 @@ public class EnderPower {
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
         machines = TeBlockRegistry.get(AllMachinesTE.LOCATIONRES);
-        if(Loader.isModLoaded("supersolarpanel")) {
-            sendLog("loaded supersolarpanels, so good <3");
-        }
     }
 
     @EventHandler
@@ -71,8 +70,4 @@ public class EnderPower {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) { proxy.postInit(event); }
-
-    public static void sendLog(String string) {
-        System.out.println("[EnderPower]" + string);
-    }
 }

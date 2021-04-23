@@ -1,6 +1,5 @@
 package com.nofrfa.enderpower.misc.registr;
 
-import com.nofrfa.enderpower.EnderPower;
 import com.nofrfa.enderpower.blocks.BlockList;
 import com.nofrfa.enderpower.fluids.GasBlockErbi;
 import com.nofrfa.enderpower.misc.tabs.TabsList;
@@ -13,8 +12,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import static com.nofrfa.enderpower.EnderPower.sendLog;
 
 public class BlocksRegister {
     /* [1]
@@ -70,7 +67,6 @@ public class BlocksRegister {
         setRegister(ВАШЕ_НАЗВАНИЕ_которое_писали_выше);
         Пример: setRegister(URANIUM_CHILD);
         */
-        sendLog("[REGISTER] block");
         setRegister(BLOCK_UltimateMachineCasing);
         setRegister(GAS_ERBI);
     }

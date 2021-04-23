@@ -4,7 +4,8 @@ import com.nofrfa.enderpower.EnderPower;
 import com.nofrfa.enderpower.item.*;
 import com.nofrfa.enderpower.item.secondproducts.SecondProducts_0;
 import com.nofrfa.enderpower.item.secondproducts.SecondProducts_1;
-import com.nofrfa.enderpower.item.upgrade.*;
+import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeSpeed;
+import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeVolecy;
 import com.nofrfa.enderpower.misc.Configs;
 import com.nofrfa.enderpower.misc.tabs.TabsList;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -19,8 +20,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import static com.nofrfa.enderpower.EnderPower.sendLog;
 
 @GameRegistry.ObjectHolder(EnderPower.MODID)
 @Mod.EventBusSubscriber
@@ -175,7 +174,6 @@ public class ItemsRegistry {
 
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {
-        sendLog("[REGISTER] item");
         //Item
         e.getRegistry().register(new Deterrent("deterrent", 1, TabsList.EXtabs));
         e.getRegistry().register(new DeterrentFilled("deterrent_filled", 1, TabsList.EXtabs));
@@ -232,7 +230,6 @@ public class ItemsRegistry {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public static void onRegistryModel(ModelRegistryEvent e) {
-        sendLog("[REGISTER] [MODEL] item");
         //Ingot
         registryModel(INGOT_spadiy);
         registryModel(INGOT_nefrit);

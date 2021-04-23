@@ -6,8 +6,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import static com.nofrfa.enderpower.EnderPower.sendLog;
-
 public class FluidsRegister {
     public static final Fluid GAS_ERBI = new GasErbi("gas_erbi",
             new ResourceLocation(EnderPower.MODID, "fluid/gas_erbi_still"),
@@ -25,7 +23,6 @@ public class FluidsRegister {
     }
 
     public static void registerFluid(Fluid fluid) {
-        sendLog("[REGISTER] fluid");
         FluidRegistry.registerFluid(fluid);
         FluidRegistry.addBucketForFluid(fluid);
     }
