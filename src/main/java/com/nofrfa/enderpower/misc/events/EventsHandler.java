@@ -3,7 +3,9 @@ package com.nofrfa.enderpower.misc.events;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
@@ -14,6 +16,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,12 +42,27 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
+    public void onTarget(LivingSetAttackTargetEvent event) {
+        if(event.getEntityLiving() instanceof EntityEnderman){
+            EntityLiving entity = (EntityLiving) event.getEntityLiving();
+            if(event.getTarget() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getTarget();
+                NonNullList<ItemStack> invPlayer = player.inventory.mainInventory;
+
+                for(ItemStack item2 : invPlayer) {
+                    if(item2.isItemEqual(new ItemStack(ItemsRegistry.ITEM_erbi_amulet)))
+                        entity.setAttackTarget(null);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void shulkerdetecter(LivingAttackEvent event) {
        Entity entity = event.getEntity();
        if(entity instanceof EntityPlayer) {
            if(event.getSource().getTrueSource() instanceof EntityShulker) {
                NonNullList<ItemStack> invPlayer = ((EntityPlayer) entity).inventory.mainInventory;
-               int invSize = invPlayer.size();
                for(ItemStack item : invPlayer) {
                    if(item.isItemEqualIgnoreDurability(new ItemStack(ItemsRegistry.ITEM_erbi_amulet))) {
                        event.setCanceled(true);
@@ -99,8 +117,7 @@ public class EventsHandler {
 
     private int getRandomNumber(int max_1) {
         if(max_1 >= 4) {
-            Random random = new Random();
-            return random.nextInt(max_1);
+            return new Random().nextInt(max_1);
         } else return max_1;
     }
 }
