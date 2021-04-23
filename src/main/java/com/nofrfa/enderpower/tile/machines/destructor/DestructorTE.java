@@ -23,6 +23,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     public final InvSlotOutput outputContainer;
     private final int MAX_PROGRESS;
     private float progress = 0;
-    private final int energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
+    private int energyConsume;
+    private int timer;
 
     public static ItemStack[] inputItem = {
             is(ItemsRegistry.DUST_spadiy, 1),
@@ -51,6 +54,7 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         this.inputContainer = new InvSlotConsumableItemStack(this, "in", 1, inputItem);
         this.outputContainer = new InvSlotOutput(this, "out", 4);
         this.MAX_PROGRESS = 1800;
+        this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {
@@ -66,6 +70,15 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
 
     protected void updateEntityServer() {
         super.updateEntityServer();
+
+        if(this.timer++ % 100 == 0) {
+            if(this.energyConsume != Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume)
+                this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
+        }
+
+        if(this.timer >= 100)
+            this.timer = 0;
+
         boolean isActive = this.redstone.getRedstoneInput() == 0;
         int recipeNumber = 0;
 
@@ -122,6 +135,7 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public GuiScreen getGui(EntityPlayer entityPlayer, boolean b) {
         return new GuiDestr(new ContainerDestr(entityPlayer, this));
     }
