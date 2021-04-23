@@ -24,9 +24,9 @@ public class Deterrent extends Item {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if(GuiScreen.isShiftKeyDown()){
-            tooltip.add(I18n.format("projectileHolder.information.line1") + " " + I18n.format("projectileHolder.information.line2"));
+            tooltip.add(I18n.format("deterrent.information.line1"));
         } else {
-            tooltip.add(I18n.format("projectileHolder.shift"));
+            tooltip.add(I18n.format("deterrent.shift"));
         }
     }
 }

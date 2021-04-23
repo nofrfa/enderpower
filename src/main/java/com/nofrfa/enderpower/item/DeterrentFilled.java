@@ -25,14 +25,16 @@ public class DeterrentFilled extends Item {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
             if(GuiScreen.isShiftKeyDown()){
                 if(!stack.hasTagCompound()) {
-                    tooltip.add(I18n.format("projectileHolder_filled.information.line1") + " " + I18n.format("projectileHolder_filled.null_info"));
+                    tooltip.add(I18n.format("deterrent_filled.information.line1") + " " + I18n.format("deterrent_filled.null_info"));
                 } else {
                     String get_nbt = stack.getTagCompound().getString("inside");
-                    tooltip.add(I18n.format("projectileHolder_filled.information.line1") + " " + get_nbt);
-                }
+                    tooltip.add(I18n.format("deterrent_filled.information.line1") + " " + get_nbt);
 
+                    if(get_nbt.equals("enderfish"))
+                        tooltip.add(I18n.format("deterrent_filled.error"));
+                }
             } else {
-                tooltip.add(I18n.format("projectileHolder.shift"));
+                tooltip.add(I18n.format("deterrent.shift"));
             }
     }
 }
