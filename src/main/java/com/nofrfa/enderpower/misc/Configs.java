@@ -101,6 +101,48 @@ public class Configs {
                 @Config.RangeInt(min = 64, max = 1024)
                 public int upgrades_volecy_increaseEnergyConsume = 256;
             }
+
+            @Config.LangKey(config + "general_settings.upgrades.energy")
+            public Energy Energy = new Energy();
+            public static class Energy {
+                @Config.LangKey(config + "general_settings.upgrades.energy.bool")
+                @Config.Comment(" /// todo ///")
+                @Config.RequiresMcRestart
+                public boolean energy_upgrade_bool = true;
+
+                @Config.LangKey(config + "general_settings.upgrades.energy.boost")
+                @Config.Comment(" /// todo ///")
+                @Config.RangeInt(min = 64, max = 1024)
+                public int energy_upgrade_boost = 256;
+            }
+
+            @Config.LangKey(config + "general_settings.upgrades.capacity")
+            public Capacity Capacity = new Capacity();
+            public static class Capacity {
+                @Config.LangKey(config + "general_settings.upgrades.capacity.bool")
+                @Config.Comment(" /// todo ///")
+                @Config.RequiresMcRestart
+                public boolean capacity_upgrade_bool = true;
+
+                @Config.LangKey(config + "general_settings.upgrades.capacity.boost")
+                @Config.Comment(" /// todo ///")
+                @Config.RangeInt(min = 64, max = 1024)
+                public int capacity_upgrade_boost = 256;
+            }
+
+            @Config.LangKey(config + "general_settings.upgrades.gift_energy")
+            public GiftEnergy GiftEnergy = new GiftEnergy();
+            public static class GiftEnergy {
+                @Config.LangKey(config + "general_settings.upgrades.gift_energy.bool")
+                @Config.Comment(" /// todo ///")
+                @Config.RequiresMcRestart
+                public boolean giftEnergy_upgrade_bool = true;
+
+                @Config.LangKey(config + "general_settings.upgrades.gift_energy.boost")
+                @Config.Comment(" /// todo ///")
+                @Config.RangeInt(min = 64, max = 1024)
+                public int giftEnergy_upgrade_boost = 256;
+            }
         }
 
         @Config.LangKey(config + "general_settings.mechanisms")
@@ -134,14 +176,24 @@ public class Configs {
             public ErbiGenerator Erbi_Generator = new ErbiGenerator();
             public static class ErbiGenerator {
                 @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.max_energy_capacity")
-                @Config.Comment("Internal energy buffer (How much can be stored)")
+                @Config.Comment("Internal energy buffer (How much can be stored)\nP.s. min=1_000_000_00 | max=9_223_372_036_854_775_807")
                 @Config.RangeDouble(min = 1_000_000_000, max = 9_223_372_036_854_775_807D)
                 public double defaultEnergyCapacity = 10_000_000_000D;
 
                 @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.production")
-                @Config.Comment(" /// ") // TODO: 09.04.2021
-                @Config.RangeInt(min = 1)
-                public int defaultProduction = 400_000;
+                @Config.Comment("How much will be produced at a temperature of 2700")
+                @Config.RangeDouble(min = 1, max = 9_223_372_036_854_775_807D)
+                public double defaultProduction = 400_000;
+
+                @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.gift_division_1")
+                @Config.Comment("By how much the current energy production will be divided (main + additional) - to get the MINIMUM value of the additional generation increase (if you want to add the same amount as the produced one, put 1)")
+                @Config.RangeInt(min = 1, max = 10)
+                public int gift_division_1 = 8;
+
+                @Config.LangKey(config + "general_settings.mechanisms.erbi_generator.gift_division_2")
+                @Config.Comment("By how much the current energy production will be divided (main + additional) - to get the MAXIMUM value of the additional generation increase (if you want to add the same amount as the produced one, put 1)")
+                @Config.RangeInt(min = 1, max = 10)
+                public int gift_division_2 = 4;
             }
         }
 
@@ -156,10 +208,7 @@ public class Configs {
     }
 
     public static int getErbiGeneratorTier() {
-        if(GeneralSettings.activateHighEnergyTier)
-            return 15;
-        else
-            return 4;
+        return GeneralSettings.activateHighEnergyTier ? 15 : 4;
     }
 
     @SubscribeEvent
