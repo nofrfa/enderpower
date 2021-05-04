@@ -63,12 +63,12 @@ public class EventsHandler {
        if(entity instanceof EntityPlayer) {
            if(event.getSource().getTrueSource() instanceof EntityShulker) {
                NonNullList<ItemStack> invPlayer = ((EntityPlayer) entity).inventory.mainInventory;
-               for(ItemStack item : invPlayer) {
-                   if(item.isItemEqualIgnoreDurability(new ItemStack(ItemsRegistry.ITEM_erbi_amulet))) {
+               for (ItemStack item : invPlayer) {
+                   if (item.isItemEqualIgnoreDurability(new ItemStack(ItemsRegistry.ITEM_erbi_amulet))) {
                        event.setCanceled(true);
                        item.damageItem(1, event.getEntityLiving());
-                       for(ItemStack item2 : invPlayer) {
-                           if(item2.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
+                       for (ItemStack item2 : invPlayer) {
+                           if (item2.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
                                item2.setCount(0);
                                NBTTagCompound nbttt = new NBTTagCompound();
                                nbttt.setString("inside", "shulker_projectile");
