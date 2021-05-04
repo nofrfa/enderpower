@@ -67,7 +67,7 @@ public class EnderPowerCommand extends CommandBase {
             ItemStack mainHandItem = player.getHeldItemMainhand();
 
             if(args[0].equals("detter_shulker")) {
-                if(mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent_filled)) && mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
+                if(mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent_filled)) || mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
                     if(!mainHandItem.hasTagCompound()) {
                         ItemStack finalItem = new ItemStack(ItemsRegistry.ITEM_deterrent_filled);
 
@@ -99,7 +99,7 @@ public class EnderPowerCommand extends CommandBase {
                             mainHandItem.setCount(-1);
 
                             player.inventory.addItemStackToInventory(finalItem);
-                            player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + "EnderFish was artificially added to the §dDeterrent"));
+                            player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + "EnderFish was artificially added to the \u00A7dDeterrent"));
                         } else {
                             player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + I18n.format("command.enderpower_give.nbt.error")));
                         }
