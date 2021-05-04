@@ -104,7 +104,7 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("inhibition_core")
     public static final Item ITEM_The_inhibition = null;
 
-    //Ядро ингибирования
+    //Амулет
     @GameRegistry.ObjectHolder("amulet_erbi")
     public static final Item ITEM_erbi_amulet = null;
 
@@ -168,63 +168,84 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("upgrade_volecy")
     public static final Item UPGRADE_Volecy  = null;
 
-    //Улучшени скорости
+    //Улучшение скорости
     @GameRegistry.ObjectHolder("upgrade_speed")
     public static final Item UPGRADE_speed  = null;
+
+    //Улучшение для генератора
+    @GameRegistry.ObjectHolder("upgrade_energy")
+    public static final Item UPGRADE_energy  = null;
+
+    //Улучшение для генератора
+    @GameRegistry.ObjectHolder("upgrade_capacity")
+    public static final Item UPGRADE_capacity  = null;
+
+    //Улучшение для генератора
+    @GameRegistry.ObjectHolder("upgrade_gift_energy")
+    public static final Item UPGRADE_gift_energy  = null;
+
 
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {
         //Item
         e.getRegistry().register(new Deterrent("deterrent", 1, TabsList.EXtabs));
         e.getRegistry().register(new DeterrentFilled("deterrent_filled", 1, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("compressed_carbon_plate", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("ultimate_circuit", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("neifrit_coil", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("emptyshell", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("heatingrod", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("inhibition_core", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("compressed_carbon_plate", 64));
+        e.getRegistry().register(new ItemList("ultimate_circuit", 64));
+        e.getRegistry().register(new ItemList("neifrit_coil", 64));
+        e.getRegistry().register(new ItemList("emptyshell", 64));
+        e.getRegistry().register(new ItemList("heatingrod", 64));
+        e.getRegistry().register(new ItemList("inhibition_core", 64));
         e.getRegistry().register(new ErbiAmulet("amulet_erbi", 1, Configs.GeneralSettings.Item.amuletErbi_durability, TabsList.EXtabs));
 
         //Ingot
-        e.getRegistry().register(new ItemList("spadiy", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("neifrit", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("erbi", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("spadiy", 64));
+        e.getRegistry().register(new ItemList("neifrit", 64));
+        e.getRegistry().register(new ItemList("erbi", 64));
 
         //Plate
-        e.getRegistry().register(new ItemList("spadiy_plate", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("neifrit_plate", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("neifrit_plate_dense", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("spadiy_plate_dense", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("spadiy_plate", 64));
+        e.getRegistry().register(new ItemList("neifrit_plate", 64));
+        e.getRegistry().register(new ItemList("neifrit_plate_dense", 64));
+        e.getRegistry().register(new ItemList("spadiy_plate_dense", 64));
 
         //Casing
-        e.getRegistry().register(new ItemList("neifrit_casing", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("neifrit_casing", 64));
 
         //Dust
-        e.getRegistry().register(new ItemList("spadiy_dust", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("neifrit_dust", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("steel_dust", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("spadiy_dust", 64));
+        e.getRegistry().register(new ItemList("neifrit_dust", 64));
+        e.getRegistry().register(new ItemList("steel_dust", 64));
 
         //Module
-        e.getRegistry().register(new ItemList("powerconversion_module", 1, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("powerconversion_module", 1));
 
         //Upgrade
         e.getRegistry().register(new MachinesUpgradeSpeed("upgrade_speed", 16, TabsList.EXtabs));
         e.getRegistry().register(new MachinesUpgradeVolecy("upgrade_volecy", 16, TabsList.EXtabs));
+        if(Configs.GeneralSettings.Upgrades.Energy.energy_upgrade_bool)
+            e.getRegistry().register(new ItemList("upgrade_energy", 1));
 
-        //Component TODO: переделать maxDamage
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.1", 1, Configs.GeneralSettings.Item.heatSink1_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.2", 1, Configs.GeneralSettings.Item.heatSink2_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.3", 1, Configs.GeneralSettings.Item.heatSink3_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.4", 1, Configs.GeneralSettings.Item.heatSink4_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.5", 1, Configs.GeneralSettings.Item.heatSink5_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.6", 1, Configs.GeneralSettings.Item.heatSink6_durability, TabsList.EXtabs));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.7", 1, Configs.GeneralSettings.Item.heatSink7_durability, TabsList.EXtabs));
+        if(Configs.GeneralSettings.Upgrades.Capacity.capacity_upgrade_bool)
+            e.getRegistry().register(new ItemList("upgrade_capacity", 1));
+
+        if(Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_bool)
+            e.getRegistry().register(new ItemList("upgrade_gift_energy", 1));
+
+        //Component
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.1", 1, Configs.GeneralSettings.Item.heatSink1_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.2", 1, Configs.GeneralSettings.Item.heatSink2_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.3", 1, Configs.GeneralSettings.Item.heatSink3_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.4", 1, Configs.GeneralSettings.Item.heatSink4_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.5", 1, Configs.GeneralSettings.Item.heatSink5_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.6", 1, Configs.GeneralSettings.Item.heatSink6_durability));
+        e.getRegistry().register(new CoolingComp("heatsink_lvl.7", 1, Configs.GeneralSettings.Item.heatSink7_durability));
 
         //Second Products
         e.getRegistry().register(new SecondProducts_0("second_product_0", 64, TabsList.EXtabs));
         e.getRegistry().register(new SecondProducts_1("second_product_1", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("second_product_2", 64, TabsList.EXtabs));
-        e.getRegistry().register(new ItemList("second_product_3", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("second_product_2", 64));
+        e.getRegistry().register(new ItemList("second_product_3", 64));
     }
 
     @SubscribeEvent

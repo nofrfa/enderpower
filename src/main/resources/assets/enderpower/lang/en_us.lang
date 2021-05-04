@@ -10,6 +10,7 @@ erbigenerator.gui.temp=Now:
 erbigenerator.gui.max_temp=Max.:
 erbigenerator.gui.prod=Generation:
 erbigenerator.gui.output=Output:
+erbigenerator.gui.gift_energy=Add. Generation:
 erbigenerator.gui.infinity=Infinitely
 erbigenerator.gui.prompt_line1=Gas capsule slot
 erbigenerator.gui.prompt_line2=Empty Capsule Slot
@@ -92,6 +93,9 @@ upgrade.speed2=Increases energy consumption by
 upgrade.volecy=Increases energy consumption by
 upgrade.volecy2=Increases the gas output by
 upgrade.alert=§4ATTENTION: if you change the number of improvements in the mechanism - the progress is reset
+upgrade.energy=§8Increases the amount of energy produced in the generator
+upgrade.capacity=§8Increases internal energy storage in the generator
+upgrade.gift_energy=§8Increases additional generation in the generator
 
 jei.desc.projectile_holder=To fill the §d§lDeterrent§r, you need to hold it in your hands, press the RBM on the shulker projectile
 jei.desc.extra=When using improvements:

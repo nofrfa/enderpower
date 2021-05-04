@@ -10,6 +10,7 @@ erbigenerator.gui.temp=Сейчас:
 erbigenerator.gui.max_temp=Макс.:
 erbigenerator.gui.prod=Генерация:
 erbigenerator.gui.output=Выход:
+erbigenerator.gui.gift_energy=Доп. Генерация:
 erbigenerator.gui.infinity=Бесконечно
 erbigenerator.gui.prompt_line1=Слот для капсул с газом
 erbigenerator.gui.prompt_line2=Слот для пустых капсул
@@ -92,6 +93,9 @@ upgrade.speed2=Увеличивает потребление энергии на
 upgrade.volecy=Увеличивает потребление энергии на
 upgrade.volecy2=Увеличивает выход газа на
 upgrade.alert=§4ВНИМАНИЕ: при изменении количества улучшений в механизме - обнуляется прогресс
+upgrade.energy=§8Увеличивает количество производимой энергии в генераторе
+upgrade.capacity=§8Увеличивает внутренее хранилище энергии в генераторе
+upgrade.gift_energy=§8Увеличивает дополнительную генерацию в генераторе
 
 jei.desc.projectile_holder=Чтобы заполнить §d§lСдерживатель§r, нужно держа его в руках, нажать ПКМ по снаряду шалкера
 jei.desc.extra=При использовании улучшений:
