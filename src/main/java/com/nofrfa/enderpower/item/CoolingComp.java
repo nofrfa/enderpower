@@ -1,31 +1,33 @@
 package com.nofrfa.enderpower.item;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import com.nofrfa.enderpower.misc.tabs.TabsList;
+import ic2.core.init.Localization;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class CoolingComp extends Item {
-    public CoolingComp(String name, int setMaxStack, int maxDamage, CreativeTabs setTab) {
+    public CoolingComp(String name, int setMaxStack, int maxDamage) {
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setMaxDamage(maxDamage);
-        this.setCreativeTab(setTab);
+        this.setCreativeTab(TabsList.EXtabs);
         this.setMaxStackSize(setMaxStack);
         this.setNoRepair();
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-        ItemStack item = playerIn.getHeldItem(handIn);
-        item.damageItem(20, playerIn);
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, item);
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        tooltip.add(String.format("%s %s / %s", Localization.translate("ic2.reactoritem.durability"), stack.getMaxDamage() - stack.getItemDamage(), stack.getMaxDamage()));
+
     }
 
+    @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book)
     {
         return false;
