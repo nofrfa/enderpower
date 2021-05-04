@@ -31,7 +31,7 @@ public class DeterrentFilled extends Item {
                     tooltip.add(I18n.format("deterrent_filled.information.line1") + " " + get_nbt);
 
                     if(get_nbt.equals("enderfish"))
-                        tooltip.add(I18n.format("deterrent_filled.error"));
+                        tooltip.add(I18n.format("deterrent.error"));
                 }
             } else {
                 tooltip.add(I18n.format("deterrent.shift"));
