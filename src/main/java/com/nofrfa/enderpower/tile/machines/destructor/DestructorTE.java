@@ -34,8 +34,8 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     protected Redstone redstone;
     public final InvSlotConsumableItemStack inputContainer;
     public final InvSlotOutput outputContainer;
-    private final int MAX_PROGRESS;
-    private float progress = 0;
+    private int MAX_PROGRESS;
+    private float progress;
     private int energyConsume;
     private int timer;
 
@@ -53,18 +53,21 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         this.redstone = this.addComponent(new Redstone(this));
         this.inputContainer = new InvSlotConsumableItemStack(this, "in", 1, inputItem);
         this.outputContainer = new InvSlotOutput(this, "out", 4);
-        this.MAX_PROGRESS = 1800;
+        this.progress = 0;
+        this.MAX_PROGRESS = 600;
         this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.progress = nbt.getInteger("progress");
+        this.MAX_PROGRESS = nbt.getInteger("max_progress");
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("progress", getProgress());
+        nbt.setInteger("max_progress", this.MAX_PROGRESS);
         return nbt;
     }
 

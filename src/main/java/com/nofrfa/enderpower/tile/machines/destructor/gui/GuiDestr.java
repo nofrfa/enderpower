@@ -17,7 +17,7 @@ public class GuiDestr extends GuiIC2<ContainerDestr> {
     protected void drawForegroundLayer(int mouseX, int mouseY) {
         super.drawForegroundLayer(mouseX, mouseY);
 
-        int xScale = (int) (this.container.base.getProgress() / 1.5);
+        int xScale = (int) (this.container.base.getProgress() / 1.55);
 
         this.mc.getTextureManager().bindTexture(getTexture());
         this.drawTexturedModalRect(46, 21, 176, 0, xScale, 43);
