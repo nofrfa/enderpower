@@ -25,7 +25,7 @@ public class GuiEG extends GuiIC2<ContainerEG> {
     @SideOnly(Side.CLIENT)
     protected void drawForegroundLayer(int mouseX, int mouseY) {
         super.drawForegroundLayer(mouseX, mouseY);
-        if(isMouseOverPromt(mouseX, mouseY)) {
+        if(isMouseOverPrompt(mouseX, mouseY)) {
             this.mc.getTextureManager().bindTexture(new ResourceLocation("enderpower", "textures/gui/gui_other.png"));
             List<String> prompt = new ArrayList<>();
 
@@ -60,25 +60,29 @@ public class GuiEG extends GuiIC2<ContainerEG> {
         this.drawTexturedModalRect(101, 140 - energyScaleY, 0, 128 - energyScaleY, 9, 128);
 
         this.drawTexturedModalRect(117, 10, 18, 0, 93, 41);
+        this.drawTexturedModalRect(116, 116, 111, this.container.base.getMode() ? 17 : 0, 36, 18);
 
         this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.stored_energy"), ModUtils.getString(this.container.base.stored)), 118, 55, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.capacity_energy"), ModUtils.getString(this.container.base.maxCapacity)), 118, 63, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.temp"), this.container.base.temperature), 118, 71, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.temp"), String.format("%.2f", this.container.base.temperature)), 118, 71, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.max_temp"), this.container.base.maxTemperature), 118, 79, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.prod"), ModUtils.getString(this.container.base.production)), 118, 87, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.output"), I18n.format("erbigenerator.gui.infinity")), 118, 95, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.prod"), ModUtils.getString(this.container.base.guiProd)), 118, 87, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s", I18n.format("erbigenerator.gui.gift_energy"), ModUtils.getString(this.container.base.giftEnergy)), 118, 95, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.output"), I18n.format("erbigenerator.gui.infinity")), 118, 103, 15659247, true);
     }
 
     @Override
     protected void actionPerformed(GuiButton guibutton) throws IOException {
         super.actionPerformed(guibutton);
-        IC2.network.get(false).initiateClientTileEntityEvent(this.container.base, guibutton.id);
+        if(this.container.base.temperature <= 5300 && this.container.base.getMode()
+                || this.container.base.temperature == 0 && !this.container.base.getMode() && this.container.base.fluidTank.getFluidAmount() > 0)
+            IC2.network.get(false).initiateClientTileEntityEvent(this.container.base, guibutton.id);
     }
 
     @Override
     public void initGui() {
         super.initGui();
-        this.buttonList.add(new GuiButton(0, this.guiLeft + 30, this.guiTop + 60, 18, 18, ""));
+        this.buttonList.add(new GuiButton(0, this.guiLeft + 116, this.guiTop + 115, 36, 20, ""));
     }
 
     public ResourceLocation getTexture() {
@@ -87,22 +91,19 @@ public class GuiEG extends GuiIC2<ContainerEG> {
 
     private final int xTemp = this.guiLeft+83;
     private final int yTemp = this.guiTop+12;
-
     private boolean isMouseOverTemp(int mouseX, int mouseY){
         return mouseX >= this.xTemp && mouseY >= this.yTemp && mouseX < this.xTemp+11 && mouseY < this.yTemp+134;
     }
 
     private final int xEnergy = this.guiLeft+101;
     private final int yEnergy = this.guiTop+12;
-
     private boolean isMouseOverEnergyCapacity(int mouseX, int mouseY) {
         return mouseX >= this.xEnergy && mouseY >= this.yEnergy && mouseX < this.xEnergy+9 && mouseY < this.yEnergy+128;
     }
 
     private final int xPrompt = this.guiLeft+196;
     private final int yPrompt = this.guiTop+233;
-
-    private boolean isMouseOverPromt(int mouseX, int mouseY) {
+    private boolean isMouseOverPrompt(int mouseX, int mouseY) {
         return mouseX >= this.xPrompt && mouseY >= this.yPrompt && mouseX < this.xPrompt+10 && mouseY < this.yPrompt+14;
     }
 }

@@ -12,6 +12,23 @@ public class ContainerEG extends ContainerFullInv<ErbiGeneratorTE> {
         super(player, tileEntity, 218, 256);
         addSlotToContainer(new SlotInvSlot(tileEntity.inputFluidSlot, 0, 23, 140));
         addSlotToContainer(new SlotInvSlot(tileEntity.outputFluidSlot, 0, 45, 140));
+
+        addSlotToContainer(new SlotInvSlot(tileEntity.heatSink, 0, 34, 111));
+
+        int i;
+        for(i = 0; i < 3; i++) {
+            addSlotToContainer(new SlotInvSlot(tileEntity.heatSink_reserve, i, 16 + 18 * i, 64));
+        }
+        for(i = 0; i < 3; i++) {
+            addSlotToContainer(new SlotInvSlot(tileEntity.heatSink_reserve, 3 + i, 16 + 18 * i, 82));
+        }
+
+        for(i = 0; i < 3; i++) {
+            addSlotToContainer(new SlotInvSlot(tileEntity.upgrades, i, 16 + 18 * i, 16));
+        }
+        for(i = 0; i < 3; i++) {
+            addSlotToContainer(new SlotInvSlot(tileEntity.upgrades, 3 + i, 16 + 18 * i, 34));
+        }
     }
 
     public List<String> getNetworkedFields() {
@@ -22,10 +39,11 @@ public class ContainerEG extends ContainerFullInv<ErbiGeneratorTE> {
         ret.add("stored");
         ret.add("output");
         ret.add("maxCapacity");
-        ret.add("production");
+        ret.add("guiProd");
         ret.add("temperature");
         ret.add("maxTemperature");
         ret.add("fluidTank");
+        ret.add("giftEnergy");
         return ret;
     }
 }
