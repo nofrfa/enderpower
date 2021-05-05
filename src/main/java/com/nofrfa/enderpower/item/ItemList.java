@@ -25,9 +25,11 @@ public class ItemList extends Item {
         if(stack.isItemEqual(new ItemStack(ItemsRegistry.UPGRADE_energy))) {
             tooltip.add(I18n.format("upgrade.energy"));
         }
+
         if(stack.isItemEqual(new ItemStack(ItemsRegistry.UPGRADE_capacity))) {
             tooltip.add(I18n.format("upgrade.capacity"));
         }
+
         if(stack.isItemEqual(new ItemStack(ItemsRegistry.UPGRADE_gift_energy))) {
             tooltip.add(I18n.format("upgrade.gift_energy"));
         }
