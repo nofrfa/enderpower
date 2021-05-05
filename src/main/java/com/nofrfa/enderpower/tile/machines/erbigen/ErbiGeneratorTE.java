@@ -65,7 +65,13 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     public final InvSlotConsumableLiquid inputFluidSlot;
     public final InvSlotConsumableItemStack heatSink_reserve;
     public final InvSlotConsumableItemStack heatSink;
+    public static ItemStack[] upgradesList = {
+            new ItemStack(ItemsRegistry.UPGRADE_energy),
+            new ItemStack(ItemsRegistry.UPGRADE_capacity),
+            new ItemStack(ItemsRegistry.UPGRADE_gift_energy)
+    };
     public final InvSlotConsumableItemStack upgrades;
+
 
     public ErbiGeneratorTE() {
         this.tier = Configs.getErbiGeneratorTier();
@@ -94,12 +100,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         };
         this.heatSink_reserve = new InvSlotConsumableItemStack(this, "heatSink_reserve",  InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, heatSinks);
         this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.O, 1, InvSlot.InvSide.NOTSIDE);
-        ItemStack[] upgrades = {
-                new ItemStack(ItemsRegistry.UPGRADE_energy),
-                new ItemStack(ItemsRegistry.UPGRADE_capacity),
-                new ItemStack(ItemsRegistry.UPGRADE_gift_energy)
-        };
-        this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, upgrades);
+        this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, upgradesList);
     }
 
     @Override
@@ -167,15 +168,43 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     }
 
     @Override
+    protected void onBlockBreak() {
+        super.onBlockBreak();
+        //this.world.newExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 20.0F, true, true);
+    }
+
+    @Override
     protected void updateEntityServer() {
         super.updateEntityServer();
 
-        if(this.timer++ % 100 == 0) {
-            if(this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity)
-                this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity;
+        double energyProdBonus = 0;
+        double capacityBonus = 0;
+        double giftEnergyBonus = 0;
 
-            if(this.production != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction)
-                this.production = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction;
+        for(int i = 0; i < this.upgrades.size(); i++) {
+            for(int i1 = 0; i1 < upgradesList.length; i1++) {
+                if(this.upgrades.get(i).isItemEqual(upgradesList[i1])) { // 0 - Energy | 1 - Capacity | 2 - GiftEnergy
+                    switch (i1) {
+                        case 0:
+                            energyProdBonus += Configs.GeneralSettings.Upgrades.Energy.energy_upgrade_boost;
+                            break;
+                        case 1:
+                            capacityBonus += Configs.GeneralSettings.Upgrades.Capacity.capacity_upgrade_boost;
+                            break;
+                        case 2:
+                            giftEnergyBonus += Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
+                            break;
+                    }
+                }
+            }
+        }
+
+        if(this.timer++ % 100 == 0) {
+            if(this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + energyProdBonus)
+                this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + energyProdBonus;
+
+            if(this.production != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus)
+                this.production = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus;
 
             if(this.stored > this.maxCapacity)
                 this.stored = this.maxCapacity;
@@ -234,7 +263,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         }
 
         if(this.workTime == 4100) {
-            double tmp = this.production + this.giftEnergy;
+            double tmp = this.production + energyProdBonus + this.giftEnergy + giftEnergyBonus;
             this.giftEnergy += getRandom(
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
@@ -243,16 +272,10 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         }
 
         if(this.temperature >= 1000) {
-            double energyPerTemp = (this.production / 1700) * (this.temperature - 1000);
+            double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
             this.stored += Math.min(getFreeEnergy(), energyPerTemp) + this.giftEnergy;
         }
-    }
-
-    @Override
-    protected void onBlockBreak() {
-        super.onBlockBreak();
-        //this.world.newExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 20.0F, true, true);
     }
 
     @Override
