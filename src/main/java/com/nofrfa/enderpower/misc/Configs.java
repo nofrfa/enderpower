@@ -112,8 +112,8 @@ public class Configs {
 
                 @Config.LangKey(config + "general_settings.upgrades.energy.boost")
                 @Config.Comment(" /// todo ///")
-                @Config.RangeInt(min = 64, max = 1024)
-                public int energy_upgrade_boost = 256;
+                @Config.RangeDouble(min = 1, max = 9_223_372_036_854_775_807D)
+                public double energy_upgrade_boost = 200_000;
             }
 
             @Config.LangKey(config + "general_settings.upgrades.capacity")
@@ -126,8 +126,8 @@ public class Configs {
 
                 @Config.LangKey(config + "general_settings.upgrades.capacity.boost")
                 @Config.Comment(" /// todo ///")
-                @Config.RangeInt(min = 64, max = 1024)
-                public int capacity_upgrade_boost = 256;
+                @Config.RangeDouble(min = 1_000_000_000, max = 500_000_000_000D)
+                public double capacity_upgrade_boost = 5_000_000_000D;
             }
 
             @Config.LangKey(config + "general_settings.upgrades.gift_energy")
@@ -140,8 +140,8 @@ public class Configs {
 
                 @Config.LangKey(config + "general_settings.upgrades.gift_energy.boost")
                 @Config.Comment(" /// todo ///")
-                @Config.RangeInt(min = 64, max = 1024)
-                public int giftEnergy_upgrade_boost = 256;
+                @Config.RangeDouble(min = 1, max = 9_223_372_036_854_775_807D)
+                public double giftEnergy_upgrade_boost = 100_000;
             }
         }
 
