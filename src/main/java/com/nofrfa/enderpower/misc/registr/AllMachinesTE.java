@@ -86,7 +86,7 @@ public enum AllMachinesTE implements ITeBlock {
     @Override
     @Nonnull
     public TeBlock.HarvestTool getHarvestTool() {
-        return TeBlock.HarvestTool.Wrench;
+        return TeBlock.HarvestTool.Pickaxe;
     }
 
     @Override
