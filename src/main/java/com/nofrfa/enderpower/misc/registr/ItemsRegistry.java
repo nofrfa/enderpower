@@ -184,6 +184,10 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("upgrade_gift_energy")
     public static final Item UPGRADE_gift_energy  = null;
 
+    //Улучшение для генератора
+    @GameRegistry.ObjectHolder("upgrade_creative_energy")
+    public static final Item UPGRADE_creative_energy  = null;
+
 
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {
@@ -231,6 +235,8 @@ public class ItemsRegistry {
 
         if(Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_bool)
             e.getRegistry().register(new ItemList("upgrade_gift_energy", 1));
+
+        e.getRegistry().register(new ItemList("upgrade_creative_energy", 1));
 
         //Component
         e.getRegistry().register(new CoolingComp("heatsink_lvl.1", 1, Configs.GeneralSettings.Item.heatSink1_durability));
@@ -287,6 +293,10 @@ public class ItemsRegistry {
         //Upgrade
         registryModel(UPGRADE_speed);
         registryModel(UPGRADE_Volecy);
+        registryModel(UPGRADE_energy);
+        registryModel(UPGRADE_capacity);
+        registryModel(UPGRADE_gift_energy);
+        registryModel(UPGRADE_creative_energy);
 
         //Component
         registryModel(COMPONENT_1);
