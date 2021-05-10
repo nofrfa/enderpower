@@ -39,6 +39,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -59,6 +60,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     private int timer;
     public double workTime;
     public double giftEnergy;
+    public boolean creativeEnergy;
     public final FluidTank fluidTank;
     protected final Fluids fluids;
     public final InvSlotOutput outputFluidSlot;
@@ -68,10 +70,11 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     public static ItemStack[] upgradesList = {
             new ItemStack(ItemsRegistry.UPGRADE_energy),
             new ItemStack(ItemsRegistry.UPGRADE_capacity),
-            new ItemStack(ItemsRegistry.UPGRADE_gift_energy)
+            new ItemStack(ItemsRegistry.UPGRADE_gift_energy),
+            new ItemStack(ItemsRegistry.UPGRADE_creative_energy)
     };
     public final InvSlotConsumableItemStack upgrades;
-
+    public boolean boom;
 
     public ErbiGeneratorTE() {
         this.tier = Configs.getErbiGeneratorTier();
@@ -85,6 +88,8 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.temperature = 0;
         this.workTime = 0;
         this.giftEnergy = 0;
+        this.boom = false;
+        this.creativeEnergy = false;
         this.fluids = (Fluids) addComponent((TileEntityComponent) new Fluids(this));
         this.fluidTank = this.fluids.addTank("fluidTank", 100000, Fluids.fluidPredicate(FluidsRegister.GAS_ERBI));
         this.outputFluidSlot = new InvSlotOutput(this, "fluid_output", 1);
@@ -99,7 +104,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 new ItemStack(ItemsRegistry.COMPONENT_7),
         };
         this.heatSink_reserve = new InvSlotConsumableItemStack(this, "heatSink_reserve",  InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, heatSinks);
-        this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.O, 1, InvSlot.InvSide.NOTSIDE);
+        this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.IO, 1, InvSlot.InvSide.ANY, heatSinks);
         this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, upgradesList);
     }
 
@@ -148,9 +153,8 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
     protected void onLoaded() {
         super.onLoaded();
-        if (!this.world.isRemote) {
+        if(!this.world.isRemote)
             this.addedToEnet = !MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-        }
     }
 
     @Override
@@ -163,27 +167,33 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
     protected void onUnloaded() {
         super.onUnloaded();
-        if (this.addedToEnet)
+        if(this.addedToEnet)
             this.addedToEnet = MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
     }
 
     @Override
     protected void onBlockBreak() {
         super.onBlockBreak();
-        //this.world.newExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 20.0F, true, true);
+        if(this.boom)
+            goBoom();
     }
 
     @Override
     protected void updateEntityServer() {
         super.updateEntityServer();
 
+        if(this.temperature >= 5300) {
+            this.boom = true;
+        }
+
         double energyProdBonus = 0;
         double capacityBonus = 0;
         double giftEnergyBonus = 0;
+        this.creativeEnergy = false;
 
         for(int i = 0; i < this.upgrades.size(); i++) {
             for(int i1 = 0; i1 < upgradesList.length; i1++) {
-                if(this.upgrades.get(i).isItemEqual(upgradesList[i1])) { // 0 - Energy | 1 - Capacity | 2 - GiftEnergy
+                if(this.upgrades.get(i).isItemEqual(upgradesList[i1])) { // 0 - Energy | 1 - Capacity | 2 - GiftEnergy | 3 - CreativeEnergy
                     switch (i1) {
                         case 0:
                             energyProdBonus += Configs.GeneralSettings.Upgrades.Energy.energy_upgrade_boost;
@@ -194,14 +204,17 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                         case 2:
                             giftEnergyBonus += Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
                             break;
+                        case 3:
+                            this.creativeEnergy = true;
+                            break;
                     }
                 }
             }
         }
 
         if(this.timer++ % 100 == 0) {
-            if(this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + energyProdBonus)
-                this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + energyProdBonus;
+            if(this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus)
+                this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus;
 
             if(this.production != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus)
                 this.production = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus;
@@ -210,7 +223,10 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 this.stored = this.maxCapacity;
         }
 
-        if(this.timer >= 100)
+        if(this.boom && this.timer % 600 == 0)
+            goBoom();
+
+        if(this.timer >= 1000)
             this.timer = 0;
 
         if(this.heatSink.isEmpty()) {
@@ -226,33 +242,35 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         if(this.inputFluidSlot.processIntoTank(this.fluidTank, this.outputFluidSlot))
             this.markDirty();
 
-        if(this.fluidTank.getFluidAmount() <= 0)
+        if(this.fluidTank.getFluidAmount() <= 0 && !this.creativeEnergy)
             this.setMode(0);
 
         if(this.getMode()) {
-            this.setActive(true);
-            this.workTime += 1;
-            if(this.temperature < 2700) {
-                if(this.timer % 5 == 0) {
-                    this.fluidTank.drain(1, true);
-                    this.temperature += getRandom(5, 9);
-                }
-            } else {
-                if(this.timer % 10 == 0) {
-                    this.fluidTank.drain(1, true);
-                    this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3, 9));
+            if(!this.creativeEnergy) {
+                this.setActive(true);
+                this.workTime += 1;
+                if (this.temperature < 2700) {
+                    if (this.timer % 5 == 0) {
+                        this.fluidTank.drain(1, true);
+                        this.temperature += getRandom(5, 9);
+                    }
+                } else {
+                    if (this.timer % 10 == 0) {
+                        this.fluidTank.drain(1, true);
+                        this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3, 9));
 
-                    if(!this.heatSink.isEmpty()) {
-                        int excessTemp = (int) this.temperature - 2700;
-                        int durabilityHeatSink = this.heatSink.get().getMaxDamage() - this.heatSink.get().getItemDamage();
+                        if (!this.heatSink.isEmpty()) {
+                            int excessTemp = (int) this.temperature - 2700;
+                            int durabilityHeatSink = this.heatSink.get().getMaxDamage() - this.heatSink.get().getItemDamage();
 
-                        int tmp = Math.min(excessTemp, Math.min(durabilityHeatSink, 10));
-                        this.heatSink.damage(tmp, false);
-                        this.temperature -= tmp;
+                            int tmp = Math.min(excessTemp, Math.min(durabilityHeatSink, 10));
+                            this.temperature -= tmp;
+                            this.heatSink.damage(tmp, false);
+                        }
                     }
                 }
             }
-        } else {
+        } else{
             this.setActive(false);
             this.temperature -= Math.min(this.temperature, getRandom(0, 6));
             if(this.temperature < 1000) {
@@ -271,11 +289,23 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
             this.workTime = 0;
         }
 
-        if(this.temperature >= 1000) {
+        if(this.temperature >= 1000 && !this.creativeEnergy) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
             this.stored += Math.min(getFreeEnergy(), energyPerTemp) + this.giftEnergy;
         }
+
+        //creative part
+        if(this.creativeEnergy) {
+            this.stored = this.maxCapacity;
+            this.guiProd = this.maxCapacity;
+            this.temperature = 0;
+        }
+    }
+
+    public void goBoom() {
+        this.world.newExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 20.0F, true, true);
+        world.setBlockToAir(this.pos);
     }
 
     @Override
@@ -321,7 +351,14 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
     @Override
     public List<ItemStack> getWrenchDrops(World world, BlockPos blockPos, IBlockState iBlockState, TileEntity tileEntity, EntityPlayer entityPlayer, int i) {
-        return null;
+        List<ItemStack> list = new ArrayList<>();
+        inputFluidSlot.forEach(list::add);
+        heatSink.forEach(list::add);
+        heatSink_reserve.forEach(list::add);
+        upgrades.forEach(list::add);
+        outputFluidSlot.forEach(list::add);
+
+        return list;
     }
 
     @Override
