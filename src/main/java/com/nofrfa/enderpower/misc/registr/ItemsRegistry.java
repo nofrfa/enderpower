@@ -7,7 +7,12 @@ import com.nofrfa.enderpower.item.secondproducts.SecondProducts_1;
 import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeSpeed;
 import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeVolecy;
 import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.ModUtils;
 import com.nofrfa.enderpower.misc.tabs.TabsList;
+import com.nofrfa.enderpower.tools.Axe;
+import com.nofrfa.enderpower.tools.Pickaxe;
+import com.nofrfa.enderpower.tools.Shovel;
+import com.nofrfa.enderpower.tools.Sword;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -108,6 +113,18 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("amulet_erbi")
     public static final Item ITEM_erbi_amulet = null;
 
+    @GameRegistry.ObjectHolder("spadiy_pickaxe")
+    public static final Item TOOL_spadiy_pickaxe = null;
+
+    @GameRegistry.ObjectHolder("spadiy_spade")
+    public static final Item TOOL_spadiy_spade = null;
+
+    @GameRegistry.ObjectHolder("spadiy_axe")
+    public static final Item TOOL_spadiy_axe = null;
+
+    @GameRegistry.ObjectHolder("spadiy_sword")
+    public static final Item TOOL_spadiy_sword = null;
+
     /*
     Побочные продукты
     */
@@ -188,6 +205,11 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("upgrade_creative_energy")
     public static final Item UPGRADE_creative_energy  = null;
 
+    /*
+    Предметы
+    */
+
+
 
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {
@@ -201,6 +223,12 @@ public class ItemsRegistry {
         e.getRegistry().register(new ItemList("heatingrod", 64));
         e.getRegistry().register(new ItemList("inhibition_core", 64));
         e.getRegistry().register(new ErbiAmulet("amulet_erbi", 1, Configs.GeneralSettings.Item.amuletErbi_durability, TabsList.EXtabs));
+
+        //Tools
+        e.getRegistry().register(new Pickaxe(ModUtils.ToolMaterial_univ, "spadiy_pickaxe", TabsList.EXtabs));
+        e.getRegistry().register(new Shovel(ModUtils.ToolMaterial_univ, "spadiy_spade", TabsList.EXtabs));
+        e.getRegistry().register(new Axe(ModUtils.ToolMaterial_univ, "spadiy_axe", TabsList.EXtabs, 8.0F, 40.0F));
+        e.getRegistry().register(new Sword(ModUtils.ToolMaterial_sword, "spadiy_sword", TabsList.EXtabs));
 
         //Ingot
         e.getRegistry().register(new ItemList("spadiy", 64));
@@ -258,6 +286,7 @@ public class ItemsRegistry {
     @SideOnly(Side.CLIENT)
     public static void onRegistryModel(ModelRegistryEvent e) {
         //Ingot
+        assert false;
         registryModel(INGOT_spadiy);
         registryModel(INGOT_nefrit);
         registryModel(INGOT_erbi);
@@ -286,6 +315,12 @@ public class ItemsRegistry {
         registryModel(ITEM_hetrod);
         registryModel(ITEM_The_inhibition);
         registryModel(ITEM_erbi_amulet);
+
+        //Tools
+        registryModel(TOOL_spadiy_pickaxe);
+        registryModel(TOOL_spadiy_axe);
+        registryModel(TOOL_spadiy_spade);
+        registryModel(TOOL_spadiy_sword);
 
         //Module
         registryModel(MODULE_power_convertion);
