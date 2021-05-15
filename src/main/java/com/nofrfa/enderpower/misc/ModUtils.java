@@ -1,5 +1,8 @@
 package com.nofrfa.enderpower.misc;
 
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.EnumHelper;
+
 public class ModUtils {
     public static String getString(float number) {
         float g = number;
@@ -59,4 +62,23 @@ public class ModUtils {
         }
         return returnString;
     }
+
+    public static final Item.ToolMaterial ToolMaterial_univ =
+            EnumHelper.addToolMaterial(
+                    "enderpower:tool", //name
+                    4, //HarvestLevel
+                    5712, //MaxUses
+                    40.0F, //Efficiency
+                    6.0F, //Damage
+                    30 //Enchantability
+            );
+    public static final Item.ToolMaterial ToolMaterial_sword =
+            EnumHelper.addToolMaterial(
+                    "enderpower:sword", //name
+                    4, //HarvestLevel
+                    2856, //MaxUses
+                    1.0F, //Efficiency
+                    13.0F, //Damage
+                    30 //Enchantability
+            );
 }
