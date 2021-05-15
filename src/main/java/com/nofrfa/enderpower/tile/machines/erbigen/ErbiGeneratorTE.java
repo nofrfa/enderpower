@@ -61,18 +61,26 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     public double workTime;
     public double giftEnergy;
     public boolean creativeEnergy;
+    public int gasUsed;
     public final FluidTank fluidTank;
     protected final Fluids fluids;
     public final InvSlotOutput outputFluidSlot;
     public final InvSlotConsumableLiquid inputFluidSlot;
     public final InvSlotConsumableItemStack heatSink_reserve;
     public final InvSlotConsumableItemStack heatSink;
-    public static ItemStack[] upgradesList = {
-            new ItemStack(ItemsRegistry.UPGRADE_energy),
-            new ItemStack(ItemsRegistry.UPGRADE_capacity),
-            new ItemStack(ItemsRegistry.UPGRADE_gift_energy),
-            new ItemStack(ItemsRegistry.UPGRADE_creative_energy)
-    };
+    public final InvSlotOutput outputSecondProducts;
+    public static ItemStack[] upgradesList;
+
+    static {
+        assert false;
+        upgradesList = new ItemStack[]{
+                new ItemStack(ItemsRegistry.UPGRADE_energy),
+                new ItemStack(ItemsRegistry.UPGRADE_capacity),
+                new ItemStack(ItemsRegistry.UPGRADE_gift_energy),
+                new ItemStack(ItemsRegistry.UPGRADE_creative_energy)
+        };
+    }
+
     public final InvSlotConsumableItemStack upgrades;
     public boolean boom;
 
@@ -90,10 +98,12 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.giftEnergy = 0;
         this.boom = false;
         this.creativeEnergy = false;
+        this.gasUsed = 0;
         this.fluids = (Fluids) addComponent((TileEntityComponent) new Fluids(this));
-        this.fluidTank = this.fluids.addTank("fluidTank", 100000, Fluids.fluidPredicate(FluidsRegister.GAS_ERBI));
+        this.fluidTank = this.fluids.addTank("fluidTank", 16000, Fluids.fluidPredicate(FluidsRegister.GAS_ERBI));
         this.outputFluidSlot = new InvSlotOutput(this, "fluid_output", 1);
         this.inputFluidSlot = new InvSlotConsumableLiquidByList(this, "fluid_input", InvSlot.Access.I, 1, InvSlot.InvSide.ANY, InvSlotConsumableLiquid.OpType.Drain, FluidsRegister.GAS_ERBI);
+        assert false;
         ItemStack[] heatSinks = {
                 new ItemStack(ItemsRegistry.COMPONENT_1),
                 new ItemStack(ItemsRegistry.COMPONENT_2),
@@ -106,6 +116,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.heatSink_reserve = new InvSlotConsumableItemStack(this, "heatSink_reserve",  InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, heatSinks);
         this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.IO, 1, InvSlot.InvSide.ANY, heatSinks);
         this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, upgradesList);
+        this.outputSecondProducts = new InvSlotOutput(this, "secProd_output", 1);
     }
 
     @Override
@@ -182,9 +193,11 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     protected void updateEntityServer() {
         super.updateEntityServer();
 
-        if(this.temperature >= 5300) {
+        if(this.temperature >= 5300)
             this.boom = true;
-        }
+
+        if(this.boom && this.timer % 1200 == 0)
+            goBoom();
 
         double energyProdBonus = 0;
         double capacityBonus = 0;
@@ -223,10 +236,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 this.stored = this.maxCapacity;
         }
 
-        if(this.boom && this.timer % 600 == 0)
-            goBoom();
-
-        if(this.timer >= 1000)
+        if(this.timer >= 2000)
             this.timer = 0;
 
         if(this.heatSink.isEmpty()) {
@@ -257,22 +267,38 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 } else {
                     if (this.timer % 10 == 0) {
                         this.fluidTank.drain(1, true);
+                        this.gasUsed++;
                         this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3, 9));
+
+                        if(this.gasUsed == 33) {
+                            assert false;
+                            if(this.outputSecondProducts.canAdd(new ItemStack(ItemsRegistry.GENERATOR_sp_0))) {
+                                this.outputSecondProducts.add(new ItemStack(ItemsRegistry.GENERATOR_sp_0));
+                            } else {
+                                this.temperature += getRandom(300, 500);
+                            }
+
+                            this.gasUsed = 0;
+                        }
+
+                        if(this.stored == this.maxCapacity) {
+                            this.temperature += getRandom(10, 80);
+                        }
 
                         if (!this.heatSink.isEmpty()) {
                             int excessTemp = (int) this.temperature - 2700;
                             int durabilityHeatSink = this.heatSink.get().getMaxDamage() - this.heatSink.get().getItemDamage();
 
-                            int tmp = Math.min(excessTemp, Math.min(durabilityHeatSink, 10));
+                            int tmp = Math.min(durabilityHeatSink, excessTemp);
                             this.temperature -= tmp;
                             this.heatSink.damage(tmp, false);
                         }
                     }
                 }
             }
-        } else{
+        } else {
             this.setActive(false);
-            this.temperature -= Math.min(this.temperature, getRandom(0, 6));
+            this.temperature -= Math.min(this.temperature, getRandom(0.0, 6.0));
             if(this.temperature < 1000) {
                 this.guiProd = 0;
             }
@@ -289,7 +315,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
             this.workTime = 0;
         }
 
-        if(this.temperature >= 1000 && !this.creativeEnergy) {
+        if(this.temperature >= 1000) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
             this.stored += Math.min(getFreeEnergy(), energyPerTemp) + this.giftEnergy;
@@ -399,6 +425,10 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
     private double getRandom(double min, double max) {
         return ThreadLocalRandom.current().nextDouble(min, max);
+    }
+
+    private int getRandom(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max);
     }
 
     public void setMode(int mode1) {
