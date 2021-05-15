@@ -23,7 +23,8 @@ public class CoolingComp extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(String.format("%s %s / %s", Localization.translate("ic2.reactoritem.durability"), stack.getMaxDamage() - stack.getItemDamage(), stack.getMaxDamage()));
+        if(!stack.isItemDamaged())
+            tooltip.add(String.format("%s %s / %s", Localization.translate("ic2.reactoritem.durability"), stack.getMaxDamage() - stack.getItemDamage(), stack.getMaxDamage()));
     }
 
     @Override
