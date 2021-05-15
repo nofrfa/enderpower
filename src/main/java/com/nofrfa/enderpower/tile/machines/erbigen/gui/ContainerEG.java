@@ -12,6 +12,7 @@ public class ContainerEG extends ContainerFullInv<ErbiGeneratorTE> {
         super(player, tileEntity, 218, 256);
         addSlotToContainer(new SlotInvSlot(tileEntity.inputFluidSlot, 0, 23, 140));
         addSlotToContainer(new SlotInvSlot(tileEntity.outputFluidSlot, 0, 45, 140));
+        addSlotToContainer(new SlotInvSlot(tileEntity.outputSecondProducts, 0, 158, 117));
 
         addSlotToContainer(new SlotInvSlot(tileEntity.heatSink, 0, 34, 111));
 
